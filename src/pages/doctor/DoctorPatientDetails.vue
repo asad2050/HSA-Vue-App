@@ -2,9 +2,7 @@
     <base-dialog :show="!!error" title="An error occurred" @close="handleError">
           <p class="error-message" >{{ error }}</p>
         </base-dialog>
-        <base-dialog :show="success" title="Appointment Booked Successfullly" @close="handleSuccess">
-          <p class="success" >Appointment Booked Successfullly</p>
-        </base-dialog>
+
         <base-dialog  :show="isLoading" title="Loading..." fixed>
           <base-spinner></base-spinner>
         </base-dialog>
@@ -60,7 +58,7 @@ TheAppointmentsRow
         isLoading:false,
       error:null,
       patient:{},
-            success:false
+         
     }
   }  ,
   computed:{
@@ -142,10 +140,7 @@ TheAppointmentsRow
             handleError(){
           this.error=null;
         },
-        handleSuccess(){
-          this.success=false;
-       
-        },
+        
         
   },
 async created(){

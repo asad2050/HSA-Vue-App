@@ -8,6 +8,7 @@
        <base-dialog :show="success" title="Appointment Status Updated Successfullly" @close="handleSuccess">
           <p class="success" >Appointment Status Updated Successfullly</p>
         </base-dialog>
+        
 <section v-if="!isLoading && doctor">
     <base-card>
       <h4>Search Date and Shift </h4>
@@ -43,7 +44,11 @@
         </base-button-container>
       </div>
     </base-card>
-
+    
+    <base-spinner     v-if="isLoading && errors.length===0"
+    :show="isLoading"
+    title="Loading..." ></base-spinner>
+ 
  
   </section>
   <section v-if="appointments?.length!==0" class="appointment-row-container">
@@ -221,7 +226,7 @@ unMark(){
       ) {
         this.errors.push("Shift End is invalid");
       }
-      if (!this.errors.length) {
+      if (this.errors.length === 0) {
         return true;
       }
       return false;

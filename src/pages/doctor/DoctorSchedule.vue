@@ -2,21 +2,8 @@
   <base-dialog :show="!!error" title="An error occurred" @close="handleError">
     <p class="error-message">{{ error }}</p>
   </base-dialog>
-  <base-dialog
-    :show="success && !error"
-    title="Appointment Booked Successfullly"
-    @close="handleSuccess"
-  >
-    <p class="success"> Success</p>
-  </base-dialog>
-  <!-- <base-dialog
-    v-if="isLoading && !error"
-    :show="isLoading"
-    title="Loading..."
-    fixed
-  >
-    <base-spinner></base-spinner>
-  </base-dialog> -->
+  
+ 
   <section>
     <base-card>
       <h4>Search Date and Shift</h4>
@@ -49,7 +36,11 @@
         </base-button-container>
       </div>
     </base-card>
-
+   
+    <base-spinner     v-if="isLoading && errors.length===0"
+    :show="isLoading"
+    title="Loading..." ></base-spinner>
+ 
  
   </section>
 
@@ -78,7 +69,7 @@ export default {
       formIsValid: true,
       isLoading: false,
       error: null,
-      success: false,
+    
       date: "",
       shifts: [],
       shift: {},
@@ -133,7 +124,7 @@ export default {
     },
 
     async search() {
-    
+      this.formIsValid = true;
       if (!this.checkForm()) {
         this.formIsValid = false;
         return;
@@ -141,6 +132,7 @@ export default {
       this.isLoading=true;
       let shift = JSON.stringify(this.shift);
       shift = JSON.parse(shift);
+      console.log(shift)
       const payload = {
         date: this.date,
         shift: shift,
@@ -159,20 +151,20 @@ export default {
         this.errors.push("date is invalid");
       }
       if (
-        !this.shift.startTime ||
-        this.shift.startTime === "" ||
+        !this.shift?.startTime ||
+        this.shift?.startTime === "" ||
         !/^([01]\d|2[0-3]):([0-5]\d)$/.test(this.shift?.startTime)
       ) {
         this.errors.push("Shift Start is invalid");
       }
       if (
-        !this.shift.endTime ||
-        this.shift.endTime === "" ||
+        !this.shift?.endTime ||
+        this.shift?.endTime === "" ||
         !/^([01]\d|2[0-3]):([0-5]\d)$/.test(this.shift?.endTime)
       ) {
         this.errors.push("Shift End is invalid");
       }
-      if (!this.errors.length) {
+      if (this.errors.length === 0) {
         return true;
       }
       return false;
@@ -180,9 +172,7 @@ export default {
     handleError() {
       this.error = null;
     },
-    handleSuccess() {
-      this.success = false;
-    },
+  
   },
 
   async created() {

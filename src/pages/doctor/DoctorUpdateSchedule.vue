@@ -4,10 +4,10 @@
   </base-dialog>
   <base-dialog
     :show="success && !error"
-    title="Appointment Booked Successfullly"
+    title="Schedule Updated Successfullly"
     @close="handleSuccess"
   >
-    <p class="success">Updated Successfullly</p>
+    <p class="success">Schedule Updated Successfullly</p>
   </base-dialog>
   <base-dialog
     v-if="isLoading && !error"

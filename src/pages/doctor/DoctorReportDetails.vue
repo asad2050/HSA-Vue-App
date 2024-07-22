@@ -26,7 +26,11 @@
       </div>
     </base-card>
   </section>
+  <base-dialog v-if="isLoading " :show="isLoading" title="Loading..." fixed>
+          <base-spinner></base-spinner>
+        </base-dialog>
   <section v-if="this.report">
+    
     <div class="heading">
       <!-- <li :show="this.report.date"><span>Date:</span> {{this.report.date }}</li> 
               <li :show="this.report.month"><span>Month:</span> {{this.report.month }}</li>  -->

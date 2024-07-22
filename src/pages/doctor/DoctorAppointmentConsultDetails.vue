@@ -112,6 +112,11 @@
         </span>
         </li>
       </ol>
+      <PastAppointmentDetails v-for="appointment of this.pastAppointments??[]"
+      :appointment="appointment"
+      :key="appointment._id"
+      ></PastAppointmentDetails>
+    
       <div class="load-past">
         <base-button mode="primary" @click="loadPastData">Load Past Data</base-button>
       </div>
@@ -218,9 +223,10 @@
 </template>
 <script>
 import { DateTime } from "luxon";
-
+import PastAppointmentDetails from "../../components/appointments/PastAppointmentDetails.vue"
 export default {
   props: ["aId"],
+  components:{PastAppointmentDetails},
   data() {
     return {
       // selectedAppointment:null
@@ -237,6 +243,7 @@ export default {
       notes: "",
       error: null,
       success: false,
+   
     };
   },
   watch: {
@@ -327,9 +334,44 @@ export default {
       this.success = false;
       this.$router.back();
     },
+    async loadPastData(){
+      const pId=this.selectedAppointment?.patient?._id
+      if(!pId){
+        return 
+      }  
+      
+        this.$store.dispatch('doctor/fetchPatientPastAppointments',pId);
+      
+      
+      
+     
+      
+    }
   },
 
   computed: {
+    pastAppointments(){
+      const appointments= this.$store.getters['doctor/currentPatientRecentAppointments']??[];
+       const result=[];
+       
+       for (const appointment of appointments??[]) {
+         const appointmentObj = {
+           id: appointment?._id ??"",
+           patientName: appointment?.patientName ??'',
+           doctorName:appointment.doctorName??'',
+           date:appointment?.ISTDateString??'',
+           // city: !appointment.hospitalAddress.city ?appointment.hospitalAddress.city :'',
+           startTime:appointment?.startTime??'',
+           hospitalAddress: appointment?.hospitalAddress??null,
+           duration: appointment?.duration??null,
+           hospitalName:appointment?.hospitalName??'',
+           status:appointment?.status??'pending'
+         };
+       result.push(appointmentObj);
+       
+    }
+      return result;
+    },
     getDate() {
       return this.selectedAppointment?.ISTDateString ?? "";
     },

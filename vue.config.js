@@ -3,6 +3,9 @@ const webpack = require('webpack');
 
 module.exports = defineConfig({
   transpileDependencies: true,
+  css:{
+    extract:false
+  },
   devServer: {
     proxy: {
       '/api': {

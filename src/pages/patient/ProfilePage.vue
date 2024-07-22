@@ -2,10 +2,10 @@
     <base-dialog :show="!!error" title="An error occurred" @close="handleError">
           <p class="error-message" >{{ error }}</p>
         </base-dialog>
-        <base-dialog :show="success" title="Appointment Booked Successfullly" @close="handleSuccess">
-          <p class="success" >Appointment Booked Successfullly</p>
+        <base-dialog :show="success" title="Profile Updated Successfullly" @close="handleSuccess">
+          <p class="success" >Profile Updated Successfullly</p>
         </base-dialog>
-        <base-dialog v-if="isLoading" :show="isLoading" title="Loading..." fixed>
+        <base-dialog v-if="isLoading && !error" :show="isLoading" title="Loading..." fixed>
           <base-spinner></base-spinner>
         </base-dialog>
 

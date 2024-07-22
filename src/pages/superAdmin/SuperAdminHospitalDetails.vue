@@ -2,7 +2,7 @@
     <base-dialog :show="!!error" title="An error occurred" @close="handleError">
           <p class="error-message" >{{ error }}</p>
         </base-dialog>
-        <base-dialog :show="success" title="Appointment Booked Successfullly" @close="handleSuccess">
+        <base-dialog :show="success" title="Admin Created Successfullly" @close="handleSuccess">
           <p class="success" >Admin Created Successfullly</p>
         </base-dialog>
         <div v-if="isLoading">
@@ -23,7 +23,7 @@
     <base-dialog :show="!!error" title="An error occurred" @close="handleError">
           <p class="error-message" >{{ error }}</p>
         </base-dialog>
-        <base-dialog :show="success" title="Appointment Booked Successfullly" @close="handleSuccess">
+        <base-dialog :show="success" title="Admin Created Successfullly" @close="handleSuccess">
           <p class="success" >Admin Created Successfullly</p>
         </base-dialog>
       <base-card>

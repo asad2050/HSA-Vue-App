@@ -4,7 +4,7 @@
     </base-dialog>
     <base-dialog
       :show="success && !error"
-      title="Appointment Booked Successfullly"
+      title="Doctor Schedule Updated Successfully"
       @close="handleSuccess"
     >
       <p class="success">Updated Successfullly</p>
