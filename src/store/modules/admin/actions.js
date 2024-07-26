@@ -429,6 +429,27 @@ async  fetchAppointmentDetails(context,payload){
     }
     context.commit('setStaffDetails',responseData.staffDoc);
   },
+  async deleteStaff(context,payload){ 
+    const token = context.rootGetters["auth/token"];
+    let url ="/api/admin/staff/manage/"+payload.sId;
+    const response = await fetch(
+      url,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer" + " " + token,
+        }
+      }
+    );
+    const responseData = await response.json();
+    console.log(responseData);
+    if (!response.ok) {
+      const error = new Error(responseData.message || "Failed to delete");
+      throw error;
+    }
+
+  },
   async fetchNurseList(context) {
     const token = context.rootGetters["auth/token"];
     const response = await fetch(

@@ -417,7 +417,16 @@ export default{
             
           async  remove(){
                 const payload ={ sId:this.sId}
-                console.log(payload)
+                this.isLoading=true;
+            try{
+              await this.$store.dispatch('admin/deleteStaff',payload)  ;
+              
+            }catch(err){
+              this.error = err.message || 'Failed to update, try later.';
+            }  finally{
+              this.isLoading=false;
+            }
+
                 
             },
     edit(){
@@ -519,12 +528,14 @@ export default{
   this.isLoading=true;
             try{
               await this.$store.dispatch('admin/updateStaffDetails',payload)  ;
-              this.isLoading=false
+              this.isEditing=false;
+              this.success = true
             }catch(err){
               this.error = err.message || 'Failed to update, try later.';
-            }    
-            this.isEditing=false;
-                this.success = true
+            }    finally{
+              this.isLoading=false
+            }
+           
             },
             handleError(){
           this.error=null;
@@ -645,10 +656,12 @@ async created(){
 
         }
         
- this.isLoading=false;
+
     }catch(err){
               this.error = err.message || 'Failed to fetch, try later.';
-            }   
+            }   finally{
+              this.isLoading=false;
+            }
 
   }
 

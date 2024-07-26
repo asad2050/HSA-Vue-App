@@ -3,7 +3,7 @@
           <p class="error-message" >{{ error }}</p>
         </base-dialog>
 
-        <base-dialog  :show="isLoading" title="Loading..." fixed>
+        <base-dialog  :show="isLoading && !error" title="Loading..." fixed>
           <base-spinner></base-spinner>
         </base-dialog>
 
@@ -148,7 +148,7 @@ async created(){
     try{
         await this.$store.dispatch('doctor/fetchPatientDetails',{pId:this.pId});
         const patient = this.$store.getters['doctor/searchedPatientDetails'];
-        console.log(patient)
+
        
         this.patient={
             name: patient.name,
@@ -160,12 +160,14 @@ async created(){
             sex:patient.sex,
             age:patient.age,
         }
-
+        
     }catch(err){
 
               this.error = err.message || 'Failed to fetch, try later.';
             }   
-            this.isLoading=false;
+            finally{
+              this.isLoading = false;
+            }
 
   }
 

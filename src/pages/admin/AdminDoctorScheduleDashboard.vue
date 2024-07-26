@@ -2,7 +2,7 @@
   <base-dialog :show="!!error" title="An error occurred" @close="handleError">
           <p class="error-message" >{{ error }}</p>
         </base-dialog>
-    <div v-if="isLoading">
+    <div v-if="isLoading && !error">
          <base-spinner></base-spinner>
        </div>
        <base-dialog :show="success" title="Appointment Status Updated Successfullly" @close="handleSuccess">
@@ -174,15 +174,17 @@ unMark(){
           dId:this.dId,
           status:this.status
         }
+        this.isLoading=true;
         try{
-          this.isLoading=true;
+          
           this.$store.dispatch('admin/updateAppointmentStatusMany',payload)
-          this.isLoading=false;
           this.success=true;
-          this.status=[]
+          this.status=[];
         }catch(err){
   
           this.error = err.message || 'Something went wrong!';
+        }finally{
+            this.isLoading=false;
         }
 
       },
@@ -266,19 +268,19 @@ unMark(){
     this.isLoading=true;
             try{
                 await this.$store.dispatch('admin/fetchDoctorList');
-               
                 const doctor =this.$store.getters['admin/doctorList'].find((doctor)=>doctor.sId===this.dId)??{}
                 this.doctor = {
-                 
                   name: doctor?.name ?? '',
       id: doctor?.sId ?? '',
       shifts: doctor?.shifts ?? [],
       specialty: doctor?.specialty ?? []
                 }
-                this.isLoading=false;
+               
             }catch(err){
                 this.error = err.message || 'Something went wrong!';
                 
+            }finally{
+              this.isLoading=false;
             }
   }
 }</script>

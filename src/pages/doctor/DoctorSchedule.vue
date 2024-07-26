@@ -80,7 +80,6 @@ export default {
     appointments(){
         const appointments= this.$store.getters['doctor/searchedScheduleAppointments']??[];
        const result=[];
-       console.log(appointments)
        for (const appointment of appointments) {
          const appointmentObj = {
            id: appointment?._id ??"",
@@ -132,7 +131,6 @@ export default {
       this.isLoading=true;
       let shift = JSON.stringify(this.shift);
       shift = JSON.parse(shift);
-      console.log(shift)
       const payload = {
         date: this.date,
         shift: shift,
@@ -143,7 +141,9 @@ export default {
       } catch (err) {
         this.error = err;
       }
-      this.isLoading = false;
+     finally{
+      this.isLoading=false;
+     }
     },
     checkForm() {
       this.errors = [];
@@ -183,16 +183,13 @@ export default {
         this.date = todaySchedule?.date??"";
         this.shift = todaySchedule?.shift;
       }
-
       await this.$store.dispatch("doctor/fetchDoctorDetails");
-
       const doctor = this.$store.getters["doctor/doctor"]??{};
-      console.log(doctor?.shifts);
       this.shifts = doctor?.shifts??[];
-
-      this.isLoading = false;
     } catch (err) {
       this.error = err.message || "Failed to fetch, try later.";
+    }finally{
+      this.isLoading=false;
     }
   },
 

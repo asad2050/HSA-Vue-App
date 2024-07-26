@@ -297,11 +297,7 @@ export default {
         this.fees.totalAmount += feeStructure.amount;
       }
 
-      console.log(labTests);
-      console.log(prescriptions);
-      console.log(feesStructure);
-      console.log(this.fees);
-      console.log(this.notes);
+    
       const labTestResponse = [];
       for (const labTest of labTests) {
         labTestResponse.push(labTest.name);
@@ -339,7 +335,6 @@ export default {
       if(!pId){
         return 
       }  
-      
         this.$store.dispatch('doctor/fetchPatientPastAppointments',pId);
       
       
@@ -480,9 +475,10 @@ export default {
     this.isLoading = true;
     try {
       await this.$store.dispatch("doctor/fetchAppointmentDetails", payload);
-      this.isLoading = false;
     } catch (err) {
       this.error = err.message || "failed to fetch";
+    }finally{
+      this.isLoading=false;
     }
   },
 };

@@ -66,7 +66,7 @@ export default {
   },
  async created(){
     try{
-
+      
         await this.$store.dispatch('admin/fetchNotifications');
     }catch(err){
        this.error= err.message||'failed to fetch'

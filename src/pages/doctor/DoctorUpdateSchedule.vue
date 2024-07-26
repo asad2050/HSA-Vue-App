@@ -179,16 +179,17 @@ export default {
       const payload = {
         offDays: offDays,
       };
-      console.log(payload);
       this.isLoading=true;
       try{
         await this.$store.dispatch('doctor/updateDoctorOffDays',payload);
-        this.isLoading=false
+        this.success=true;
        
       }catch(err){
         this.error = err.message || 'Failed to update, try later.';
+      } finally{
+        this.isLoading=false;
       }
-      this.success=true
+   
     },
     backToProfile() {
       this.$router.back();
@@ -212,7 +213,7 @@ export default {
           this.errors.push("Date of Offday is empty at index" + (index + 1));
         }
         if (this.offDays[index].shifts.length > 0) {
-          console.log("here 2");
+      
           for (const [sIndex, shift] of this.offDays[index].shifts.entries()) {
             if (!shift.startTime || shift.startTime === "") {
               this.errors.push(

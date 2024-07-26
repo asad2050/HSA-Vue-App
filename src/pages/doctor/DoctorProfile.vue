@@ -476,16 +476,19 @@ export default{
               shifts:shifts,
               appointmentDuration:this.appointmentDuration
             }
-  console.log(payload);
   this.isLoading=true;
             try{
               await this.$store.dispatch('doctor/updateDoctorDetails',payload)  ;
-              this.isLoading=false
+              this.isEditing=false;
+              this.success = true;
             }catch(err){
               this.error = err.message || 'Failed to update, try later.';
-            }    
-            this.isEditing=false;
-                this.success = true
+            }   
+            finally{
+      this.isLoading=false;
+
+    } 
+            
             },
             handleError(){
           this.error=null;
@@ -597,11 +600,13 @@ async created(){
            appointmentDuration: doctor?.appointmentDuration
         }
         
- this.isLoading=false;
-    }catch(err){
 
+    }catch(err){
               this.error = err.message || 'Failed to fetch, try later.';
             }   
+            finally{
+              this.isLoading=false;
+            }
 
   }
 

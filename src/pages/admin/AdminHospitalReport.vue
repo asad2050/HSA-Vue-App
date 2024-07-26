@@ -2,7 +2,7 @@
   <base-dialog :show="!!error" title="An error occurred" @close="handleError">
     <p class="error-message">{{ error }}</p>
   </base-dialog>
-  <div v-if="isLoading">
+  <div v-if="isLoading && !error">
     <base-spinner></base-spinner>
   </div>
 
@@ -94,7 +94,9 @@ export default {
       } catch (err) {
         this.error = err;
       }
+     finally{
       this.isLoading = false;
+     }
     },
     handleError() {
       this.error = null;

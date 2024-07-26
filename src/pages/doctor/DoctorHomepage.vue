@@ -5,7 +5,7 @@
         <section v-if="!shift" class="no-appointment">
          <h2>No current appointment for you to consult at this time</h2>
         </section>
-    <div v-if="isLoading">
+    <div v-if="isLoading && !error">
          <base-spinner></base-spinner>
        </div>
      <section v-if="shift" class="main-section">
@@ -98,7 +98,6 @@
        },
        nextAppointment(){
         const appointment=this.$store.getters['doctor/currentPatientRecentAppointments'][0]??{};
-        console.log(appointment)
         if(appointment){
           const nextAppointment={
             id: appointment?._id??"",
@@ -121,13 +120,13 @@
        async loadScheduleAppointments(){
          this.isLoading = true;
          this.error = null;
-         console.log(this.$store.getters['auth/token']);
              try{
              await this.$store.dispatch('doctor/fetchHome');
              }catch (error) {
            this.error = error.message || 'Something went wrong!';
+         }finally{
+           this.isLoading = false;
          }
-         this.isLoading = false;
        },
 
            //   const pastAppointments= data.pastAppointments;

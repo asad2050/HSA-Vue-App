@@ -2,7 +2,7 @@
    <base-dialog :show="!!error" title="An error occurred" @close="handleError">
           <p class="error-message" >{{ error }}</p>
         </base-dialog>
-        <base-dialog :show="isLoading" title="Loading..." fixed>
+        <base-dialog :show="isLoading && !error" title="Loading..." fixed>
           <base-spinner></base-spinner>
         </base-dialog>
         <base-dialog :show="success" title="Appointment Booked Successfullly" @close="handleSuccess">
@@ -128,8 +128,9 @@ export default{
                 dId:this.doc
             }
             console.log(payload);
+            this.isLoading=true;
             try{
-              this.isLoading=true;
+ 
          await this.$store.dispatch('patient/bookAppointment',payload);
          
             this.success=true

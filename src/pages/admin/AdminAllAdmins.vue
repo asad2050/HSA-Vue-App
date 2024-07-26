@@ -53,10 +53,11 @@ export default{
             try{
 
                 await this.$store.dispatch('admin/fetchAdminList');
-                this.isLoading=false;
             }catch(err){
                 this.error = err.message || 'Something went wrong!';
                 
+            }finally{
+                this.isLoading=false;
             }
     }
 }

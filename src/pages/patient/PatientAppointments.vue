@@ -2,7 +2,7 @@
     <base-dialog :show="!!error" title="An error occurred" @close="handleError">
       <p class="error-message">{{ error }}</p>
     </base-dialog>
-    <div v-if="isLoading">
+    <div v-if="isLoading && !error">
       <base-spinner></base-spinner>
     </div>
     <section>
@@ -60,8 +60,8 @@
       },
       async page(page) {
         const payload = { page: page };
+        this.isLoading = true;
         try {
-          this.isLoading = true;
           await this.$store.dispatch('patient/fetchAllAppointments', payload);
           this.currentPage = this.$store.getters['patient/appointmentsCurrentPage'] ?? 1;
         } catch (err) {

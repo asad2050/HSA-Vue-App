@@ -3,7 +3,7 @@
           <p class="error-message" >{{ error }}</p>
         </base-dialog>
        
-        <base-dialog  :show="isLoading" title="Loading..." fixed>
+        <base-dialog  :show="isLoading && !error" title="Loading..." fixed>
           <base-spinner></base-spinner>
         </base-dialog>
 
@@ -110,7 +110,6 @@ TheAppointmentsRow
     appointments(){
         const appointments= this.$store.getters['admin/searchedPatientAppointments']??[];
        const result=[];
-       console.log(appointments)
        for (const appointment of appointments) {
          const appointmentObj = {
           id: appointment?._id ??"",
@@ -147,7 +146,6 @@ async created(){
     try{
         await this.$store.dispatch('admin/fetchPatientDetails',{pId:this.pId});
         const patient = this.$store.getters['admin/searchedPatientDetails'];
-        console.log(patient)
        
         this.patient={
             name: patient.name,
@@ -164,7 +162,10 @@ async created(){
 
               this.error = err.message || 'Failed to fetch, try later.';
             }   
-            this.isLoading=false;
+            finally{
+              this.isLoading=false;
+            }
+            
 
   }
 

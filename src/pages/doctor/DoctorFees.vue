@@ -2,7 +2,7 @@
     <base-dialog :show="!!error" title="An error occurred" @close="handleError">
           <p class="error-message" >{{ error }}</p>
         </base-dialog>
-        <div v-if="isLoading">
+        <div v-if="isLoading && !error">
          <base-spinner></base-spinner>
        </div>
     <section>
@@ -43,7 +43,6 @@ export default{
                 const result=[];
 
                 const feesList = this.$store.getters['doctor/feesList']??[];
-                console.log(feesList)
                 if(feesList && feesList.length>0){
                     for(const fee of feesList){
                         const Obj={
@@ -66,14 +65,17 @@ export default{
            const payload={
             page: page??1
            }
+           this.isLoading=true;
            try{
                 await this.$store.dispatch('doctor/fetchFeesList',payload);
                 this.currentPage= this.$store.getters['doctor/feesCurrentPage']??1
-                this.isLoading=false;
                
             }catch(err){
                 this.error = err.message ?? 'Something went wrong!';
                 
+            }finally{
+                this.isLoading=false;
+
             }
         },
         handleError(){
@@ -88,10 +90,11 @@ export default{
                     page:1
                 });
                 this.currentPage= this.$store.getters['doctor/feesCurrentPage']??1
-                this.isLoading=false;
             }catch(err){
                 this.error = err.message ?? 'Something went wrong!';
                 
+            }finally{
+                this.isLoading=false;
             }
     }
 }

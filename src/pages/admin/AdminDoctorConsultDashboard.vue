@@ -2,7 +2,7 @@
     <base-dialog :show="!!error" mode="error" title="An error occurred" @close="handleError">
           <p class="error-message" >{{ error }}</p>
         </base-dialog>
- <div v-if="isLoading">
+ <div v-if="isLoading && !error">
       <base-spinner></base-spinner>
     </div>
     <section v-if="!shift">
@@ -129,8 +129,10 @@ for (const appointment of appointments) {
           await this.$store.dispatch('admin/fetchConsult',payload);
           }catch (error) {
         this.error = error.message || 'Something went wrong!';
+      }finally{
+        this.isLoading = false;
       }
-      this.isLoading = false;
+      
     },
 
         //   const pastAppointments= data.pastAppointments;

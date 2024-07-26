@@ -2,7 +2,7 @@
   <base-dialog :show="!!error" title="An error occurred" @close="handleError">
     <p class="error-message">{{ error }}</p>
   </base-dialog>
-  <div v-if="isLoading">
+  <div v-if="isLoading && !error">
     <base-spinner></base-spinner>
   </div>
   <section>
@@ -41,7 +41,6 @@ export default {
       const result = [];
 
       const patientList = this.$store.getters["doctor/patientList"] ?? [];
-      console.log(patientList);
       if (patientList) {
         for (const patient of patientList) {
           const docObj = {
@@ -62,9 +61,11 @@ export default {
     this.isLoading = true;
     try {
       await this.$store.dispatch("doctor/fetchPatientList");
-      this.isLoading = false;
     } catch (err) {
       this.error = err.message || "Something went wrong!";
+    }
+    finally{
+      this.isLoading=false;
     }
   },
 };

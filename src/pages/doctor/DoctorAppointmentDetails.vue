@@ -2,7 +2,7 @@
   <base-dialog :show="!!error" title="An error occurred" @close="handleError">
     <p class="error-message">{{ error }}</p>
   </base-dialog>
-  <div v-if="isLoading">
+  <div v-if="isLoading && !error">
     <base-spinner></base-spinner>
   </div>
   <section v-if="selectedAppointment && !isLoading">
@@ -306,9 +306,11 @@ export default {
     this.isLoading = true;
     try {
       await this.$store.dispatch("doctor/fetchAppointmentDetails", payload);
-      this.isLoading = false;
+     
     } catch (err) {
       this.error = err.message || "failed to fetch";
+    }finally{
+      this.isLoading = false;
     }
   },
 };

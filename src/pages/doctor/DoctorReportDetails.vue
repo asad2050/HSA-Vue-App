@@ -26,7 +26,7 @@
       </div>
     </base-card>
   </section>
-  <base-dialog v-if="isLoading " :show="isLoading" title="Loading..." fixed>
+  <base-dialog v-if="isLoading && errors.length===0" :show="isLoading" title="Loading..." fixed>
           <base-spinner></base-spinner>
         </base-dialog>
   <section v-if="this.report">
@@ -118,7 +118,6 @@ export default {
     },
     appointments() {
       const result = [];
-
       if (this.report) {
         const appointments = this.report.appointments??[];
         if (appointments) {
@@ -157,7 +156,9 @@ export default {
       } catch (err) {
         this.error = err;
       }
-      this.isLoading = false;
+      finally{
+        this.isLoading=false;
+      }
     },
     handleError() {
       this.error = null;

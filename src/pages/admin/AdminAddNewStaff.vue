@@ -180,14 +180,15 @@ export default{
               stateMedicalCouncil: this.stateMedicalCouncil||null,
             }
             console.log(payload)
-//   this.isLoading=true;
-            // try{
-            //   await this.$store.dispatch('admin/createNewStaff',payload)  ;
-            //   this.isLoading=false
-            //   this.success = true
-            // }catch(err){
-            //   this.error = err.message || 'Failed to update, try later.';
-            // }   
+            this.isLoading=true;
+            try{
+              await this.$store.dispatch('admin/createNewStaff',payload)  ;
+              this.success = true
+            }catch(err){
+              this.error = err.message || 'Failed to update, try later.';
+            }   finally{
+              this.isLoading=false;
+            }
           
              
             },

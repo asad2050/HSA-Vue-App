@@ -2,7 +2,7 @@
     <base-dialog :show="!!error" title="An error occurred" @close="handleError">
           <p class="error-message" >{{ error }}</p>
         </base-dialog>
-        <div v-if="isLoading">
+        <div v-if="isLoading && !error">
          <base-spinner></base-spinner>
        </div>
     <section v-if="this.hospital">
@@ -52,12 +52,13 @@
         }
         this.chiefDoctor = this.$store.getters['admin/chiefDoctor']??{};
         
- this.isLoading=false;
+
     }catch(err){
 
               this.error = err.message ?? 'Failed to fetch, try later.';
-            }   
-
+            }    finally{
+              this.isLoading=false;
+            }
 
     }
   };

@@ -2,7 +2,7 @@
      <base-dialog :show="!!error" title="An error occurred" @close="handleError">
           <p class="error-message" >{{ error }}</p>
         </base-dialog>
-    <div v-if="isLoading">
+    <div v-if="isLoading && !error">
          <base-spinner></base-spinner>
        </div>
    <section v-if="selectedAppointment && !isLoading">
@@ -186,14 +186,15 @@
                 aId:this.aId,
                 status:status
             }
-            console.log(payload)
+            this.isLoading=true
             try{
-                this.isLoading=true
+                
                 await this.$store.dispatch('admin/updateAppointmentStatusOne',payload);
-                this.isLoading=false;
                 this.success=true;
             }catch(err){
                 this.error= err.message||'Could not update status of appointment'
+            }finally{
+              this.isLoading=false;
             }
         },
     //     reschedule(){
@@ -338,11 +339,11 @@
     try{
       
         await this.$store.dispatch('admin/fetchAppointmentDetails',payload);
-        this.isLoading=false;
     }catch(err){
         this.error=err.message||'failed to fetch'
+    } finally{
+      this.isLoading=false;
     }
-    console.log(this.isLoading)
     },
   };
   </script>

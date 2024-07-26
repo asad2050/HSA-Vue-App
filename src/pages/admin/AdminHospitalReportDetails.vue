@@ -109,7 +109,7 @@ export default{
               hospitalName: appointment.hospitalName ?? "",
               status: appointment.status ?? "pending",
          };
-         console.log(appointmentObj)
+         
 
        result.push(appointmentObj);
        
@@ -123,15 +123,17 @@ export default{
     date: this.$route.query?.date ?? '',
     month: this.$route.query?.month ?? '',
       };
+      this.isLoading=true;
       
       try {
         await this.$store.dispatch("admin/fetchReportsDetails", payload);
         this.report= this.$store.getters['admin/doctorReportDetails']??{};
-        console.log(this.report)
+       
       } catch (err) {
         this.error = err;
+      }finally{
+        this.isLoading = false;
       }
-      this.isLoading = false;
     
     }
 

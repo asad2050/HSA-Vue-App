@@ -187,12 +187,13 @@
         this.isLoading=true;
         try{
           await this.$store.dispatch('admin/updateDoctorOffDays',payload);
-          this.isLoading=false
-         
+          this.success=true;
         }catch(err){
           this.error = err.message || 'Failed to update, try later.';
+        }finally{
+          this.isLoading=false;
         }
-        this.success=true
+       
       },
       backToProfile() {
         this.$router.back();

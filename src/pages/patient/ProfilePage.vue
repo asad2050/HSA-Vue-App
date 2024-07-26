@@ -298,12 +298,17 @@ let s=this.profile?.name?.firstName + " " + this.profile?.name?.middleName + " "
       this.isLoading = true;
       try {
         await this.$store.dispatch("patient/updatePatientDetails", payload);
-        this.isLoading = false;
+      
+        this.success = true;
+        this.isEditing = false;
       } catch (err) {
         this.error = err.message || "Failed to update, try later.";
       }
-      this.isEditing = false;
-      this.success = true;
+      finally{
+        this.isLoading = false;
+      }
+      
+     
     },
             handleError(){
           this.error=null;
