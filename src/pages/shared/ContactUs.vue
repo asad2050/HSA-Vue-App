@@ -2,9 +2,12 @@
     <base-dialog :show="!!error" mode="error" title="An error occurred" @close="handleError">
       <p class="error-message">{{ error }}</p>
     </base-dialog>
-    <div v-if="isLoading">
+    <div v-if="isLoading && !error">
       <base-spinner></base-spinner>
     </div>
+    <base-dialog :show="success" title="Message Send Successfullly" @close="handleSuccess">
+          <p class="success" >Message Send Successfullly</p>
+        </base-dialog>
    <section id="parent-container">
      <h1>Contact Us</h1>
      <div id='CTA-container'>
@@ -314,12 +317,12 @@
         })
       });
       const responseData= await response.json();
-      console.log(responseData);
+      
     if(!response.ok || !responseData.success){
         const error = new Error(responseData.message|| 'Failed to send');
         throw error;
     }
-
+    this.success=true
             }catch(err){
 
                 this.error=err.message||'failed to send'
@@ -448,8 +451,10 @@
     },
     handleError(){
       this.error=null
-    }
-    }
+    },
+    handleSuccess(){
+      this.success=false
+    }}
 
 }
  

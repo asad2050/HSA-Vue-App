@@ -91,16 +91,15 @@ try {
     await this.$store.dispatch('auth/login', actionPayload);
 
    let redirectUrl=this.redirectUrl;
-
   this.$router.replace(redirectUrl);
 } catch (err) {
   this.error = err.message || 'Failed to authenticate, try later.';
 }
 
-this.isLoading = false;
-    
-      this.email = '';
-      this.password = null;
+finally{
+  this.isLoading = false;
+}
+  
     },
     handleError() {
       this.error = null;

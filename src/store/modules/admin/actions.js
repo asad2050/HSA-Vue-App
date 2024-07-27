@@ -415,6 +415,7 @@ async  fetchAppointmentDetails(context,payload){
         body:JSON.stringify({
           name:payload.name,
           email:payload.email,
+          password:payload.password,
           phoneNumber:payload.phoneNumber,
           educationQualification:payload.educationQualification,
           role:payload.role

@@ -86,7 +86,7 @@ export default{
               email:payload.email,
               phoneNumber:payload.phoneNumber,
               hospitalService:payload.hospitalService,
-              hospitalSpeciality:payload.hospitalSpeciality,
+              hospitalSpecialty:payload.hospitalSpecialty,
               openHours:payload.openHours,
               address:payload.address,
               chiefDoctor:payload.chiefDoctor

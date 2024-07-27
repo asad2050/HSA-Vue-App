@@ -71,6 +71,9 @@
     </base-button-container>
   </section>
   <section v-if="this.isCreating">
+    <base-dialog :show="success" title="Hospital Created Successfullly" @close="handleSuccess">
+          <p class="success" >Hospital Created Successfullly</p>
+        </base-dialog>
     <div class="form-container">
       <form>
         <base-card>
@@ -348,7 +351,7 @@
             <p v-for="error of this.errors" :key="error">{{ error }}</p>
           </div>
           <base-button-container>
-            <base-button @click.prevent="createNew" mode="primary"
+            <base-button @click.prevent="create" mode="primary"
               >Create New</base-button
             >
             <base-button @click.prevent="closeCreate" mode="flat"
@@ -413,16 +416,58 @@ import { DateTime } from 'luxon';
       back() {
         this.$router.back();
       },
-      toCreate(){
-        this.isCreating=true;
-
+      async toCreate() {
+        this.isCreating = true;
+          this.chiefDoctorFirstName = this.chiefDoctor.name.firstName;
+          this.chiefDoctorMiddleName = this.chiefDoctor.name.middleName;
+          this.chiefDoctorLastName = this.chiefDoctor.name.lastName;
+          this.chiefDoctorEmail = this.chiefDoctor.email;
+          this.chiefDoctorYearOfRegistration = this.chiefDoctor.yearOfRegistration;
+          this.chiefDoctorRegistrationNumber = this.chiefDoctor.registrationNumber;
+          this.chiefDoctorStateMedicalCouncil = this.chiefDoctor.stateMedicalCouncil;
+         if(this.chiefDoctor.educationQualification){
+          this.chiefDoctorEducationQualification=[];
+         }
+          this.chiefDoctor.educationQualification.forEach(e => {
+            this.chiefDoctorEducationQualification.push({ name: e });
+          });
+          this.hospitalName = this.selectedHospital.name;
+          this.hospitalPhoneNumber = this.selectedHospital.phoneNumber;
+          this.hospitalEmail = this.selectedHospital.email;
+          if(this.selectedHospital.openHours){
+            this.openHours = [];
+          }
+          if(this.selectedHospital.service){
+            this.hospitalService = [];
+          }
+          if(this.selectedHospital.specialty){
+            this.hospitalSpecialty = [];
+          }
+          this.selectedHospital.openHours.forEach(e=>{
+            this.openHours.push({start:e.start,end:e.end})
+          });
+          this.selectedHospital.service.forEach(e=>{
+            this.hospitalService.push({name:e})
+          })
+          this.selectedHospital.specialty.forEach(e=>{
+            this.hospitalSpecialty.push({name:e})
+          })
+          this.streetAddress1 = this.selectedHospital.address.streetAddress[0];
+          this.streetAddress2 = this.selectedHospital.address.streetAddress[1];
+          this.landmark = this.selectedHospital.address.landmark;
+          this.city = this.selectedHospital.address.city;
+          this.district = this.selectedHospital.address.district;
+          this.state = this.selectedHospital.address.state;
+          this.postalCode = this.selectedHospital.address.postalCode;
       },
+      // toCreate(){
+      //   this.isCreating=true;
+
+      // },
       closeCreate() {
 this.isCreating=false;
       },
-      createNew(){
-        console.log('here')
-      },
+     
       getOpenHours(openHour) {
         if(openHour.start && openHour.end){
           const start = DateTime.fromFormat(openHour.start, "HH:mm", {
@@ -542,6 +587,7 @@ this.isCreating=false;
          address:address,
          chiefDoctor:chiefDoctor
         };
+        console.log(payload);
 
     try{
 
@@ -570,7 +616,7 @@ this.isCreating=false;
           }
           for (const[index,sp] of this.hospitalService.entries()){
             if(!sp.name || sp.name===''){
-              this.errors.push('Hospital Specialty should not be empty, at index '+(index+1))
+              this.errors.push('Hospital Service should not be empty, at index '+(index+1))
             }
           }
           for (const[index,ed] of this.chiefDoctorEducationQualification.entries()){
@@ -620,6 +666,9 @@ this.isCreating=false;
       }
       return false;
         },
+        handleSuccess(){
+            this.success=false
+        }
     },
     computed: {
 
@@ -729,6 +778,9 @@ li {
 span {
   font-weight: bold;
   font-size: inherit;
+}
+.openHour{
+  font-weight: normal;
 }
 .card {
   padding: 1rem;

@@ -73,6 +73,10 @@
               <input type="email" id="email" v-model.trim="email" required/>
             </div>
             <div class="form-control">
+              <label for="password">Password</label>
+              <input type="password" id="password" v-model.trim="password" />
+            </div>
+            <div class="form-control">
               <label for="role">Role</label>
               <input type="text" id="role" v-model.trim="role" required/>
             </div>
@@ -250,6 +254,7 @@ export default{
             middleName:'',
             lastName:"",
             email:'',
+            password:null,
             age:'',
             phoneNumber:"",
             role:'',
@@ -320,7 +325,7 @@ export default{
         let e='';
       
 
-          for(const [index,ed] of this.staff?.educationQualification.entries()??[]){
+          for(const [index,ed] of this.staff?.educationQualification?.entries()??[]){
               if(index!= this.staff.educationQualification.length -1){
                   e+= ed+",";
               }else{
@@ -511,6 +516,7 @@ export default{
               },
               email:this.email,
               phoneNumber:this.phoneNumber,
+              password:this.password,
             //   age:this.age||null,
             //   sex:this.sex||null,
               role:this.role||null,
@@ -555,6 +561,10 @@ export default{
           if(!this.email.includes('@') || this.email===''){
             this.errors.push("email is invalid")
           }
+          if(!this.password || this.password.length<6){
+            this.errors.push("password should be atleast 6 characters long") 
+          }
+
           if(this.role !=='admin'){
           if(this.phoneNumber===''|| this.phoneNumber.length!==10 ){
             this.errors.push("Phone Number is required")

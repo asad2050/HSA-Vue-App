@@ -5,7 +5,7 @@
         <base-dialog :show="success" title="Admin Created Successfullly" @close="handleSuccess">
           <p class="success" >Admin Created Successfullly</p>
         </base-dialog>
-        <div v-if="isLoading">
+        <div v-if="isLoading && !error">
          <base-spinner></base-spinner>
        </div>
        <section v-if="this.hospital">
@@ -142,6 +142,8 @@ this.success=true
 }catch(error){
   this.error = error.message || 'Failed to fetch, try later.';
 
+}finally{
+  this.isLoading=false;
 }
 
       }
@@ -163,11 +165,12 @@ this.success=true
         }
         this.chiefDoctor = this.$store.getters['superAdmin/selectedHospitalChiefDoctor']??null
         
- this.isLoading=false;
     }catch(err){
 
               this.error = err.message || 'Failed to fetch, try later.';
-            }   
+            }   finally{
+              this.isLoading=false;
+            }
 
 
     }
