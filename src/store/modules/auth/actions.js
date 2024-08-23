@@ -5,7 +5,7 @@ let timer;
 export default {
   async login(context, payload) {
     let url ='/api/auth/login'
-
+    console.log(url)
     const response = await fetch(url, {
       method: 'POST',
       headers: {
