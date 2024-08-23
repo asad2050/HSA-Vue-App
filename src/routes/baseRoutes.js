@@ -1,19 +1,10 @@
-// import SignUp from "../pages/shared/SignUp.vue";
-// import LogIn from "@/pages/shared/LogIn.vue";
-// import HomePage from "@/pages/shared/HomePage.vue";
-// import AboutUs from "@/pages/shared/AboutUs.vue";
-// import ContactUs from "@/pages/shared/ContactUs.vue";
-// import ForgotPassword from "@/pages/shared/ForgotPassword.vue";
-// import ResetPassword from "@/pages/shared/ResetPassword.vue";
-import { defineAsyncComponent } from 'vue';
-
-const SignUp = defineAsyncComponent(() => import("../pages/shared/SignUp.vue"));
-const LogIn = defineAsyncComponent(() => import("@/pages/shared/LogIn.vue"));
-const HomePage = defineAsyncComponent(() => import("@/pages/shared/HomePage.vue"));
-const AboutUs = defineAsyncComponent(() => import("@/pages/shared/AboutUs.vue"));
-const ContactUs = defineAsyncComponent(() => import("@/pages/shared/ContactUs.vue"));
-const ForgotPassword = defineAsyncComponent(() => import("@/pages/shared/ForgotPassword.vue"));
-const ResetPassword = defineAsyncComponent(() => import("@/pages/shared/ResetPassword.vue"));
+import SignUp from "../pages/shared/SignUp.vue";
+import LogIn from "@/pages/shared/LogIn.vue";
+import HomePage from "@/pages/shared/HomePage.vue";
+import AboutUs from "@/pages/shared/AboutUs.vue";
+import ContactUs from "@/pages/shared/ContactUs.vue";
+import ForgotPassword from "@/pages/shared/ForgotPassword.vue";
+import ResetPassword from "@/pages/shared/ResetPassword.vue";
 
 const baseRoutes = [
   {

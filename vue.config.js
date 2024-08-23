@@ -1,5 +1,5 @@
-const { defineConfig } = require('@vue/cli-service')
-const webpack = require('webpack');
+const { defineConfig } = require('@vue/cli-service');
+const { DefinePlugin } = require('webpack');
 
 module.exports = defineConfig({
   transpileDependencies: true,
@@ -9,13 +9,13 @@ module.exports = defineConfig({
   devServer: {
     proxy: {
       '/api': {
-        target: 'http://localhost:3000'
+        target: process.env.BACKEND_URL || 'http://localhost:3000'
       }
     }
   },
   configureWebpack: {
     plugins: [
-      new webpack.DefinePlugin({
+      new DefinePlugin({
         '__VUE_PROD_HYDRATION_MISMATCH_DETAILS__': JSON.stringify(false),
         '__VUE_OPTIONS_API__': JSON.stringify(true),
         __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'false',
@@ -23,3 +23,5 @@ module.exports = defineConfig({
     ],
   },
 })
+
+
