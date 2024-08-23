@@ -1,7 +1,7 @@
 export default {
   async fetchHospital(context) {
     const token = context.rootGetters["auth/token"];
-    const response = await fetch("/api/admin/hospital", {
+    const response = await fetch(`${process.env.BACKEND_URL}/api/admin/hospital`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -20,7 +20,7 @@ export default {
   async fetchDoctorList(context) {
     const token = context.rootGetters["auth/token"];
     const response = await fetch(
-      "/api/admin/staff/doctors",
+      `${process.env.BACKEND_URL }/api/admin/staff/doctors`,
       {
         method: "GET",
         headers: {
@@ -40,7 +40,7 @@ export default {
   async fetchSearchedSchedule(context, payload) {
     const token = context.rootGetters["auth/token"];
     console.log(token);
-    let url = "/api/admin/schedule/" + payload.dId;
+    let url = `${process.env.BACKEND_URL}/api/admin/schedule/` + payload.dId;
     console.log(url);
     const response = await fetch(url, {
       method: "POST",
@@ -77,7 +77,7 @@ export default {
   async updateAppointmentStatusMany(context, payload) {
     const token = context.rootGetters["auth/token"];
     let url =
-      "/api/admin/schedule/" + payload.dId + "/status";
+      `${process.env.BACKEND_URL}/api/admin/schedule/` + payload.dId + "/status";
     const response = await fetch(url, {
       method: "PATCH",
       headers: {
@@ -104,7 +104,7 @@ export default {
 async  fetchAppointmentDetails(context,payload){
     const token = context.rootGetters["auth/token"];
     console.log(token);
-    let url = "/api/admin/appointments/" + payload.aId;
+    let url = process.env.BACKEND_URL+"/api/admin/appointments/" + payload.aId;
     const response = await fetch(url, {
       method: "GET",
       headers: {
@@ -126,7 +126,7 @@ async  fetchAppointmentDetails(context,payload){
   async updateAppointmentStatusOne(context, payload) {
     const token = context.rootGetters["auth/token"];
     let url =
-      "/api/admin/schedule/" + payload.dId + "/status/"+payload.aId;
+       process.env.BACKEND_URL+"/api/admin/schedule/" + payload.dId + "/status/"+payload.aId;
     const response = await fetch(url, {
       method: "PATCH",
       headers: {
@@ -147,7 +147,7 @@ async  fetchAppointmentDetails(context,payload){
   },
   async fetchNotifications(context){
     const token = context.rootGetters['auth/token']
-    const response =  await fetch("/api/admin/notification", {
+    const response =  await fetch( process.env.BACKEND_URL+"/api/admin/notification", {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -167,7 +167,7 @@ async  fetchAppointmentDetails(context,payload){
   },
   // async rescheduleAppointment(context,payload){
   //   const token= context.rootGetters['auth/token']
-  //   let url="/api/admin/schedule/" + payload.dId+"/reschedule/"+payload.aId
+  //   let url=process.env.BACKEND_URL+"/api/admin/schedule/" + payload.dId+"/reschedule/"+payload.aId
   //   const response = await fetch(url, {
   //     method: "PATCH",
   //     headers: {
@@ -188,7 +188,7 @@ async  fetchAppointmentDetails(context,payload){
   // }
   async fetchDoctorConsult(context,payload) {
     const token = context.rootGetters["auth/token"];
-    let url = "/api/admin/consult/"+payload.dId
+    let url = process.env.BACKEND_URL+"/api/admin/consult/"+payload.dId
     const response = await fetch(url, {
       method: "GET",
       headers: {
@@ -218,7 +218,7 @@ async  fetchAppointmentDetails(context,payload){
   async updateDoctorOffDays(context,payload){
     const token = context.rootGetters["auth/token"];
     console.log(token);
-    let url = "/api/admin/schedule/" + payload.dId;
+    let url = process.env.BACKEND_URL+"/api/admin/schedule/" + payload.dId;
     console.log(url);
     const response = await fetch(url, {
       method: "PATCH",
@@ -243,7 +243,7 @@ async  fetchAppointmentDetails(context,payload){
   },
   async fetchPatientList(context,payload){
     const token = context.rootGetters["auth/token"];
-    let url ='/api/admin/patients'
+    let url =process.env.BACKEND_URL+'/api/admin/patients'
     if(payload && payload.patientName){
       url+='?patientName='+payload.patientName;
     }
@@ -273,7 +273,7 @@ async  fetchAppointmentDetails(context,payload){
   },
   async fetchPatientDetails(context,payload){
     const token = context.rootGetters["auth/token"];
-    let url ='/api/admin/patients/'+payload.pId
+    let url =process.env.BACKEND_URL+'/api/admin/patients/'+payload.pId
     const response = await fetch(url, {
       method: "GET",
       headers: {
@@ -300,7 +300,7 @@ async  fetchAppointmentDetails(context,payload){
   },
   async fetchAdminList(context) {
     const token = context.rootGetters["auth/token"];
-    const response = await fetch(
+    const response = await fetch(process.env.BACKEND_URL+
       "/api/admin/staff/admins",
       {
         method: "GET",
@@ -321,7 +321,7 @@ async  fetchAppointmentDetails(context,payload){
   async fetchSelectedDoctorFeesList(context,payload){
 
     const token = context.rootGetters["auth/token"];
-    let url ='/api/admin/fees/'+payload.dId;
+    let url =process.env.BACKEND_URL+'/api/admin/fees/'+payload.dId;
     if(payload && payload.page){
       url+="?page="+payload.page
     }
@@ -353,7 +353,7 @@ async  fetchAppointmentDetails(context,payload){
   },
   async fetchSelectedDoctorFeesDetails(context,payload){
     const token = context.rootGetters["auth/token"];
-    let url ='/api/admin/fees/'+payload.dId+"/"+payload.date
+    let url =process.env.BACKEND_URL+'/api/admin/fees/'+payload.dId+"/"+payload.date
     console.log(token);
     const response = await fetch(url, {
       method: "GET",
@@ -382,7 +382,7 @@ async  fetchAppointmentDetails(context,payload){
   },
   async fetchStaffDetails(context,payload){
     const token = context.rootGetters["auth/token"];
-    let url ="/api/admin/staff/manage/"+payload.sId;
+    let url =process.env.BACKEND_URL+"/api/admin/staff/manage/"+payload.sId;
     const response = await fetch(
       url,
       {
@@ -403,7 +403,7 @@ async  fetchAppointmentDetails(context,payload){
   },
   async updateStaffDetails(context,payload){
     const token = context.rootGetters["auth/token"];
-    let url ="/api/admin/staff/manage/"+payload.sId;
+    let url =process.env.BACKEND_URL+"/api/admin/staff/manage/"+payload.sId;
     const response = await fetch(
       url,
       {
@@ -432,7 +432,7 @@ async  fetchAppointmentDetails(context,payload){
   },
   async deleteStaff(context,payload){ 
     const token = context.rootGetters["auth/token"];
-    let url ="/api/admin/staff/manage/"+payload.sId;
+    let url =process.env.BACKEND_URL+"/api/admin/staff/manage/"+payload.sId;
     const response = await fetch(
       url,
       {
@@ -454,7 +454,7 @@ async  fetchAppointmentDetails(context,payload){
   async fetchNurseList(context) {
     const token = context.rootGetters["auth/token"];
     const response = await fetch(
-      "/api/admin/staff/nurses",
+      process.env.BACKEND_URL+"/api/admin/staff/nurses",
       {
         method: "GET",
         headers: {
@@ -475,7 +475,7 @@ async  fetchAppointmentDetails(context,payload){
   
       const token = context.rootGetters["auth/token"];
       const response = await fetch(
-        "/api/admin/staff/receptionists",
+        process.env.BACKEND_URL+  "/api/admin/staff/receptionists",
         {
           method: "GET",
           headers: {
@@ -493,7 +493,7 @@ async  fetchAppointmentDetails(context,payload){
       context.commit("setReceptionistList", responseData.reeceptionistList);
   },
   async fetchReports(context,payload){
-    let url ="/api/admin/reports";
+    let url =process.env.BACKEND_URL+"/api/admin/reports";
         if(payload&&payload.date){
           url += "?date="+payload.date
         }
@@ -519,7 +519,7 @@ async  fetchAppointmentDetails(context,payload){
         context.commit('setReports',responseData.reports)
    },
    async fetchReportsDetails(context,payload){
-    let url ="/api/admin/reports/"+payload.dId;
+    let url =process.env.BACKEND_URL+"/api/admin/reports/"+payload.dId;
         if(payload&&payload.date){
           url += "?date="+payload.date
         }
@@ -546,7 +546,7 @@ async  fetchAppointmentDetails(context,payload){
    },
    async fetchStaffSearch(context,payload){
     const token = context.rootGetters["auth/token"];
-    let url ="/api/admin/staff/search/"+payload.staffName;
+    let url =process.env.BACKEND_URL+"/api/admin/staff/search/"+payload.staffName;
     const response = await fetch(
       url,
       {
@@ -567,7 +567,7 @@ async  fetchAppointmentDetails(context,payload){
    },
    async createNewStaff(context,payload){
     const token = context.rootGetters["auth/token"];
-    let url ="/api/admin/staff"
+    let url =process.env.BACKEND_URL+"/api/admin/staff"
     const response = await fetch(
       url,
       {

@@ -4,7 +4,7 @@ let timer;
 
 export default {
   async login(context, payload) {
-    let url ='/api/auth/login'
+    let url =process.env.BACKEND_URL+'/api/auth/login'
     console.log(url)
     const response = await fetch(url, {
       method: 'POST',
@@ -48,7 +48,7 @@ export default {
 
   },
   async signup(context, payload) {
-    let url ='/api/auth/signup'
+    let url =process.env.BACKEND_URL+'/api/auth/signup'
    
     const response = await fetch(url, {
       method: 'POST',
@@ -74,25 +74,7 @@ export default {
       throw error;
     }
     console.log(responseData);
-    // const expiresIn = +responseData.expiresIn * 60000;
-    // console.log(responseData.expiresIn)
-    // // const expiresIn = 5000;
-    // const expirationDate = new Date().getTime() + expiresIn;
-
-    // localStorage.setItem('token', responseData.token);
-    // localStorage.setItem('userId', responseData.userId);
-    // localStorage.setItem('role',responseData.role);
-    // localStorage.setItem('tokenExpiration', expirationDate);
-
-    // timer = setTimeout(function() {
-    //   context.dispatch('autoLogout');
-    // }, expiresIn);
-
-    // context.commit('setUser', {
-    //   token: responseData.token,
-    //   userId: responseData.userId,
-    //   role: responseData.role,
-    // });
+    
     
   },
   
@@ -142,7 +124,7 @@ export default {
     context.commit('setAutoLogout');
   },
   async forgotPassword(context,payload){
-    let url ='/api/auth/forget-password'
+    let url =process.env.BACKEND_URL+'/api/auth/forget-password'
 
     const response = await fetch(url, {
       method: 'POST',
@@ -165,7 +147,7 @@ export default {
     console.log(responseData);
   },
   async resetPassword(context,payload){
-    let url ='/api/auth/reset-password/'+payload.token;
+    let url =process.env.BACKEND_URL+'/api/auth/reset-password/'+payload.token;
 
     const response = await fetch(url, {
       method: 'POST',

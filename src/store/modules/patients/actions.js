@@ -1,7 +1,7 @@
 export default {
     async fetchPatientDetails(context){
         const token = context.rootGetters['auth/token']
-        const response =  await fetch("/api/patients/profile", {
+        const response =  await fetch(process.env.BACKEND_URL+"/api/patients/profile", {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -37,7 +37,7 @@ export default {
 
         // }
         const token = context.rootGetters['auth/token'];
-        const response =  await fetch("/api/patients", {
+        const response =  await fetch(process.env.BACKEND_URL+"/api/patients", {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ export default {
         
     },
     async fetchHospitalSearch(context,payload){
-      let url ="/api/patients/book-appointment/search";
+      let url =process.env.BACKEND_URL+"/api/patients/book-appointment/search";
       if(payload.hospitalSpecialty && payload.city){
         url += "?hospitalSpecialty="+payload.hospitalSpecialty+"&city="+payload.city;
       }
@@ -90,7 +90,7 @@ export default {
      },
     async checkAvailability(context,payload){
       const token = context.rootGetters['auth/token'];
-      const response =  await fetch("/api/patients/book-appointment/check" ,{
+      const response =  await fetch(process.env.BACKEND_URL+"/api/patients/book-appointment/check" ,{
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -129,7 +129,7 @@ export default {
     },
     async bookAppointmentCreate(context,payload){
       const token = context.rootGetters['auth/token'];
-      const response=  await fetch("/api/patients/book-appointment/create" ,{
+      const response=  await fetch(process.env.BACKEND_URL+"/api/patients/book-appointment/create" ,{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -156,7 +156,7 @@ export default {
     },
     async updatePatientDetails(context,payload){
       const token = context.rootGetters['auth/token'];
-      const response=  await fetch("/api/patients/profile" ,{
+      const response=  await fetch(process.env.BACKEND_URL+"/api/patients/profile" ,{
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -184,7 +184,7 @@ export default {
     },
     async fetchNotifications(context){
       const token = context.rootGetters['auth/token']
-      const response =  await fetch("/api/patients/notification", {
+      const response =  await fetch(process.env.BACKEND_URL+"/api/patients/notification", {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -205,7 +205,7 @@ export default {
     async fetchAppointmentDetails(context,payload){
       const token = context.rootGetters["auth/token"];
       console.log(token);
-      let url = "/api/patients/appointments/" + payload.aId;
+      let url =process.env.BACKEND_URL+ "/api/patients/appointments/" + payload.aId;
       const response = await fetch(url, {
         method: "GET",
         headers: {
@@ -225,7 +225,7 @@ export default {
     },
     async fetchAllAppointments(context,payload){
       const token = context.rootGetters["auth/token"];
-      let url ='/api/patients/appointments'
+      let url =process.env.BACKEND_URL+'/api/patients/appointments'
       if(payload && payload.page){
         url+="?page="+payload.page
       }

@@ -1,7 +1,7 @@
 export default{
     async fetchHospitalList(context){
         const token = context.rootGetters['auth/token'];
-        const response =  await fetch("/api/superAdmin/hospitals",{
+        const response =  await fetch(process.env.BACKEND_URL+"/api/superAdmin/hospitals",{
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -18,7 +18,7 @@ export default{
     },
     async fetchHospitalDetails(context,payload){
         const token = context.rootGetters['auth/token'];
-        let url = "/api/superAdmin/hospitals/"+payload.hId;
+        let url = process.env.BACKEND_URL+"/api/superAdmin/hospitals/"+payload.hId;
         const response =  await fetch(url,{
             method: 'GET',
             headers: {
@@ -37,7 +37,7 @@ export default{
     },
     async fetchCHRList(context){
         const token = context.rootGetters['auth/token'];
-        const response =  await fetch("/api/superAdmin/requests",{
+        const response =  await fetch(process.env.BACKEND_URL+"/api/superAdmin/requests",{
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -54,7 +54,7 @@ export default{
     },
     async fetchCHRDetails(context,payload){
         const token = context.rootGetters['auth/token'];
-        let url = "/api/superAdmin/requests/"+payload.CHRId;
+        let url = process.env.BACKEND_URL+"/api/superAdmin/requests/"+payload.CHRId;
         const response =  await fetch(url,{
             method: 'GET',
             headers: {
@@ -73,7 +73,7 @@ export default{
     async createNewHospital(context,payload){
       const token = context.rootGetters['auth/token'];
 
-      let url = "/api/superAdmin/hospitals/"
+      let url = process.env.BACKEND_URL+"/api/superAdmin/hospitals/"
       const response =  await fetch(url,{
           method: 'POST',
           headers: {
@@ -103,7 +103,7 @@ export default{
     },
     async createAdmin(context,payload){
       const token = context.rootGetters['auth/token'];
-      let url = "/api/superAdmin/hospitals/"+payload.hId+'/admin'
+      let url =process.env.BACKEND_URL + "/api/superAdmin/hospitals/"+payload.hId+'/admin'
       const response =  await fetch(url,{
           method: 'POST',
           headers: {
