@@ -2,7 +2,7 @@ import { DateTime } from "luxon";
 export default {
   async fetchConsult(context) {
     const token = context.rootGetters["auth/token"];
-    const response = await fetch(process.env.BACKEND_URL+"/api/doctor/consult", {
+    const response = await fetch(process.env.VUE_APP_BACKEND_URL+"/api/doctor/consult", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -30,7 +30,7 @@ export default {
   },
   async fetchHome(context) {
     const token = context.rootGetters["auth/token"];
-    const response = await fetch(process.env.BACKEND_URL+"/api/doctor/consult", {
+    const response = await fetch(process.env.VUE_APP_BACKEND_URL+"/api/doctor/consult", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -77,7 +77,7 @@ export default {
   },
   async fetchPatientPastAppointments(context, payload) {
     let url =
-    process.env.BACKEND_URL+ "/api/doctor/patients/" + payload + "/appointments";
+    process.env.VUE_APP_BACKEND_URL+ "/api/doctor/patients/" + payload + "/appointments";
     console.log(url);
     const token = context.rootGetters["auth/token"];
     const response = await fetch(url, {
@@ -102,7 +102,7 @@ export default {
   },
   async fetchDoctorDetails(context) {
     const token = context.rootGetters["auth/token"];
-    const response = await fetch(process.env.BACKEND_URL+"/api/doctor/profile", {
+    const response = await fetch(process.env.VUE_APP_BACKEND_URL+"/api/doctor/profile", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -140,7 +140,7 @@ export default {
   },
   async consultationComplete(context, payload) {
     const token = context.rootGetters["auth/token"];
-    let url =process.env.BACKEND_URL+ "/api/doctor/consult/" + payload.id;
+    let url =process.env.VUE_APP_BACKEND_URL+ "/api/doctor/consult/" + payload.id;
     console.log(url);
     const response = await fetch(url, {
       method: "PATCH",
@@ -167,7 +167,7 @@ export default {
   },
   async updateDoctorDetails(context, payload) {
     const token = context.rootGetters["auth/token"];
-    const response = await fetch(process.env.BACKEND_URL+"/api/doctor/profile", {
+    const response = await fetch(process.env.VUE_APP_BACKEND_URL+"/api/doctor/profile", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -202,7 +202,7 @@ export default {
   async fetchSchedule(context, payload) {
     const token = context.rootGetters["auth/token"];
     console.log(token);
-    const response = await fetch(process.env.BACKEND_URL+"/api/doctor/schedule", {
+    const response = await fetch(process.env.VUE_APP_BACKEND_URL+"/api/doctor/schedule", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -235,7 +235,7 @@ export default {
   },
   async updateDoctorOffDays(context,payload){
     const token = context.rootGetters["auth/token"];
-    const response = await fetch(process.env.BACKEND_URL+"/api/doctor/schedule", {
+    const response = await fetch(process.env.VUE_APP_BACKEND_URL+"/api/doctor/schedule", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -257,7 +257,7 @@ export default {
   },
   async fetchFeesList(context,payload){
     const token = context.rootGetters["auth/token"];
-    let url =process.env.BACKEND_URL+'/api/doctor/fees'
+    let url =process.env.VUE_APP_BACKEND_URL+'/api/doctor/fees'
     if(payload && payload.page){
       url+="?page="+payload.page
     }
@@ -289,7 +289,7 @@ export default {
   async  fetchAppointmentDetails(context,payload){
     const token = context.rootGetters["auth/token"];
     console.log(token);
-    let url = process.env.BACKEND_URL+"/api/doctor/appointments/" + payload.aId;
+    let url = process.env.VUE_APP_BACKEND_URL+"/api/doctor/appointments/" + payload.aId;
     const response = await fetch(url, {
       method: "GET",
       headers: {
@@ -309,7 +309,7 @@ export default {
   },
   async fetchFeesDetails(context,payload){
     const token = context.rootGetters["auth/token"];
-    let url =process.env.BACKEND_URL+'/api/doctor/fees/'+payload.date
+    let url =process.env.VUE_APP_BACKEND_URL+'/api/doctor/fees/'+payload.date
     console.log(token);
     const response = await fetch(url, {
       method: "GET",
@@ -337,7 +337,7 @@ export default {
   },
   async fetchPatientList(context,payload){
     const token = context.rootGetters["auth/token"];
-    let url =process.env.BACKEND_URL+'/api/doctor/patients'
+    let url =process.env.VUE_APP_BACKEND_URL+'/api/doctor/patients'
     if(payload && payload.patientName){
       url+='?patientName='+payload.patientName;
     }
@@ -367,7 +367,7 @@ export default {
   },
   async fetchPatientDetails(context,payload){
     const token = context.rootGetters["auth/token"];
-    let url =process.env.BACKEND_URL+'/api/doctor/patients/'+payload.pId
+    let url =process.env.VUE_APP_BACKEND_URL+'/api/doctor/patients/'+payload.pId
     const response = await fetch(url, {
       method: "GET",
       headers: {
@@ -393,7 +393,7 @@ export default {
     context.commit('setSearchedPatientAppointments',responseData.appointments)
   },
   async fetchReportDetails(context,payload){
-    let url =process.env.BACKEND_URL+"/api/doctor/reports"
+    let url =process.env.VUE_APP_BACKEND_URL+"/api/doctor/reports"
         if(payload&&payload.date){
           url += "?date="+payload.date
         }

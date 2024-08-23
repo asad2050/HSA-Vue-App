@@ -4,7 +4,7 @@ let timer;
 
 export default {
   async login(context, payload) {
-    let url =process.env.BACKEND_URL+'/api/auth/login'
+    let url =process.env.VUE_APP_BACKEND_URL+'/api/auth/login'
     console.log(url)
     const response = await fetch(url, {
       method: 'POST',
@@ -48,7 +48,7 @@ export default {
 
   },
   async signup(context, payload) {
-    let url =process.env.BACKEND_URL+'/api/auth/signup'
+    let url =process.env.VUE_APP_BACKEND_URL+'/api/auth/signup'
    
     const response = await fetch(url, {
       method: 'POST',
@@ -124,7 +124,7 @@ export default {
     context.commit('setAutoLogout');
   },
   async forgotPassword(context,payload){
-    let url =process.env.BACKEND_URL+'/api/auth/forget-password'
+    let url =process.env.VUE_APP_BACKEND_URL+'/api/auth/forget-password'
 
     const response = await fetch(url, {
       method: 'POST',
@@ -147,7 +147,7 @@ export default {
     console.log(responseData);
   },
   async resetPassword(context,payload){
-    let url =process.env.BACKEND_URL+'/api/auth/reset-password/'+payload.token;
+    let url =process.env.VUE_APP_BACKEND_URL+'/api/auth/reset-password/'+payload.token;
 
     const response = await fetch(url, {
       method: 'POST',
